@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel · Meat & Grill</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0b0a;--bg2:#151210;--bg3:#1d1915;--line:rgba(214,178,128,.18);--gold:#c9a36a;--gold2:#e2c592;--ember:#d2622f;--text:#efe7dc;--muted:#a89c8c;--ok:#86efac;--err:#fca5a5;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.1}
+.oculto{display:none!important}
+
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse at 50% 120%,rgba(210,98,47,.35),transparent 60%)}
+.login-box{width:100%;max-width:380px;background:var(--bg2);border:1px solid var(--line);padding:40px 32px;text-align:center}
+.logo{font-family:var(--serif);font-size:28px;font-weight:600}
+.logo span{color:var(--gold)}
+.sub{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.login-box input{margin-top:28px;text-align:center}
+.login-box .btn{width:100%;margin-top:14px;justify-content:center}
+.login-err{color:var(--err);margin-top:12px;min-height:20px;font-size:13px}
+
+header.top{position:sticky;top:0;z-index:20;background:rgba(13,11,10,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.top-in .logo{font-size:22px}
+.top-in .acciones{display:flex;gap:10px;align-items:center}
+nav.tabs{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;border-bottom:2px solid transparent;padding:12px 14px;color:var(--muted);cursor:pointer;white-space:nowrap;font-size:13px;letter-spacing:.04em}
+.tab:hover{color:var(--text)}
+.tab.on{color:var(--gold2);border-color:var(--gold)}
+.tab .badge{display:inline-block;min-width:18px;padding:0 5px;margin-left:6px;border-radius:9px;background:var(--ember);color:#fff;font-size:11px;text-align:center}
+
+main{max-width:1200px;margin:0 auto;padding:28px 20px 80px}
+.vista h2{font-size:34px;margin-bottom:6px}
+.vista h2 em{color:var(--gold2)}
+.lead{color:var(--muted);margin-bottom:22px}
+.fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.espacio{flex:1}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--gold);background:var(--gold);color:#120f0c;padding:9px 16px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:.2s}
+.btn:hover{background:var(--gold2)}
+.btn.sec{background:transparent;color:var(--gold)}
+.btn.sec:hover{background:rgba(201,163,106,.1)}
+.btn.peligro{background:transparent;border-color:rgba(252,165,165,.5);color:var(--err)}
+.btn.ok{background:transparent;border-color:rgba(134,239,172,.5);color:var(--ok)}
+.btn.chico{padding:6px 10px;font-size:11px}
+.btn[disabled]{opacity:.5;cursor:wait}
+
+input,select,textarea{width:100%;background:var(--bg3);border:1px solid var(--line);padding:10px 12px;outline:none;border-radius:0}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--gold)}
+label.campo{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.buscar{max-width:320px}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);padding:6px 12px;cursor:pointer;font-size:12px}
+.chip.on{background:var(--gold);color:#120f0c;border-color:var(--gold)}
+.chip b{font-weight:600;margin-left:4px}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:24px}
+.kpi{background:var(--bg2);border:1px solid var(--line);padding:16px 18px}
+.kpi span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.kpi b{display:block;font-family:var(--serif);font-size:36px;font-weight:500;color:var(--gold2);line-height:1.1;margin-top:4px}
+.kpi small{color:var(--muted);font-size:12px}
+.kpi.alerta{border-color:var(--ember)}
+.kpi.alerta b{color:var(--ember)}
+
+.dos{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.caja{background:var(--bg2);border:1px solid var(--line);padding:18px 20px;margin-bottom:16px}
+.caja h3{font-size:22px;margin-bottom:12px}
+.barras{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px}
+.barras div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+.barras i{display:block;width:100%;background:linear-gradient(0deg,var(--gold),var(--gold2));min-height:2px}
+.barras small{color:var(--muted);font-size:11px}
+.barras em{font-style:normal;font-size:12px;color:var(--text)}
+.lista-simple div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
+.lista-simple div:last-child{border:0}
+.vacio{color:var(--muted);padding:24px;text-align:center;border:1px dashed var(--line)}
+
+.tarjetas{display:grid;gap:10px}
+.res{background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--line);padding:14px 16px;display:grid;grid-template-columns:110px 1fr auto;gap:16px;align-items:center}
+.res.Pendiente{border-left-color:var(--gold2)}
+.res.Confirmada{border-left-color:var(--ok)}
+.res.Cancelada{opacity:.55;border-left-color:var(--err)}
+.res.Asistió{border-left-color:#7dd3fc}
+.res.No.vino,.res[data-e="No vino"]{border-left-color:#a1a1aa}
+.res .cuando b{display:block;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--gold2);line-height:1.1}
+.res .cuando span{color:var(--muted);font-size:12px}
+.res .quien b{font-size:15px;font-weight:500}
+.res .quien p{color:var(--muted);font-size:13px}
+.res .quien .nota{margin-top:4px;color:var(--text);font-size:13px;font-style:italic}
+.res .botones{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:300px}
+.estado{display:inline-block;padding:2px 8px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid currentColor;margin-left:6px;vertical-align:middle}
+.e-Pendiente{color:var(--gold2)}.e-Confirmada{color:var(--ok)}.e-Cancelada{color:var(--err)}.e-Asistió{color:#7dd3fc}.e-No.vino,.e-No{color:#a1a1aa}
+
+table.tabla{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--line)}
+.tabla th{text-align:left;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tabla td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tabla tr:last-child td{border:0}
+.tabla .acc{white-space:nowrap;text-align:right}
+.inactivo{opacity:.45}
+.cat{font-family:var(--serif);font-size:22px;color:var(--gold2);margin:18px 0 8px}
+
+.sellos{display:flex;gap:4px;flex-wrap:wrap}
+.sellos i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(201,163,106,.5);display:inline-block}
+.sellos i.on{background:var(--gold)}
+.sellos i.premio{border-color:var(--ember)}
+.sellos i.on.premio{background:var(--ember)}
+.premio-disp{display:inline-flex;align-items:center;gap:6px;background:rgba(210,98,47,.12);border:1px solid rgba(210,98,47,.4);padding:3px 8px;font-size:12px;margin:2px}
+
+.fotos{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.foto{background:var(--bg2);border:1px solid var(--line)}
+.foto img{width:100%;height:150px;object-fit:cover;display:block;background:var(--bg3)}
+.foto div{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+.foto small{color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.subir{background:var(--bg2);border:1px dashed var(--gold);padding:18px;display:grid;grid-template-columns:1fr 160px 1fr auto;gap:10px;align-items:end;margin-bottom:22px}
+
+.ajustes{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:820px}
+.ajustes .ancho{grid-column:1/-1}
+
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+.modal-box{background:var(--bg2);border:1px solid var(--line);width:100%;max-width:560px;padding:24px}
+.modal-box h3{font-size:26px;margin-bottom:16px}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form .ancho{grid-column:1/-1}
+.form .check{display:flex;gap:10px;align-items:center;grid-column:1/-1;color:var(--muted)}
+.modal-pie{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--gold);padding:12px 18px;z-index:60;max-width:90%;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+#toast.err{border-color:var(--err);color:var(--err)}
+#cargando{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;background:linear-gradient(90deg,transparent,var(--gold),transparent);background-size:200% 100%;animation:barra 1s linear infinite}
+@keyframes barra{from{background-position:200% 0}to{background-position:-200% 0}}
+
+@media(max-width:800px){
+  .dos,.ajustes,.form{grid-template-columns:1fr}
+  .res{grid-template-columns:1fr;gap:8px}
+  .res .botones{justify-content:flex-start;max-width:none}
+  .subir{grid-template-columns:1fr}
+  .tabla thead{display:none}
+  .tabla tr{display:block;border-bottom:1px solid var(--line);padding:8px 0}
+  .tabla td{display:block;border:0;padding:4px 12px}
+  .tabla .acc{text-align:left}
+  .vista h2{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<div id="cargando" class="oculto"></div>
+<script>
+window.onerror=function(m,f,l){var e=document.getElementById('loginErr');if(e)e.textContent='Error en el panel: '+m+(l?' (línea '+l+')':'');var c=document.getElementById('cargando');if(c)c.className='oculto'};
+window.onunhandledrejection=function(ev){window.onerror(String(ev.reason&&ev.reason.message||ev.reason))};
+</script>
+
+<section id="login">
+  <div class="login-box">
+    <div class="logo">Meat <span>&amp;</span> Grill</div>
+    <div class="sub">Panel de administración</div>
+    <input type="password" id="clave" placeholder="Contraseña" autocomplete="current-password">
+    <button class="btn" id="entrar">Entrar</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</section>
+
+<section id="app" class="oculto">
+  <header class="top">
+    <div class="top-in">
+      <div class="logo">Meat <span>&amp;</span> Grill <small style="font-family:var(--sans);font-size:11px;color:var(--muted);letter-spacing:.2em;margin-left:8px">PANEL</small></div>
+      <div class="acciones">
+        <a class="btn sec chico" id="verWeb" href="#" target="_blank" rel="noopener">Ver web</a>
+        <button class="btn sec chico" id="refrescar">Actualizar</button>
+        <button class="btn sec chico" id="salir">Salir</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+  </header>
+  <main id="vista"></main>
+</section>
+
+<div id="modal" class="oculto"></div>
+<div id="toast" class="oculto"></div>
+
+<script>
+const DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const SECCIONES={portada:'Portada',historia:'Nuestra casa',menu:'Carta',cumpleanos:'Cumpleaños',galeria:'Galería'};
+const TABS=[
+  ['resumen','Resumen'],['reservas','Reservas'],['clientes','Clientes y lealtad'],
+  ['menu','Menú'],['promos','Promociones'],['eventos','Eventos'],['fotos','Fotos'],['ajustes','Ajustes']
+];
+
+let TOKEN=null,D=null,TAB='resumen',FILTRO='pendientes',BUSCA_R='',BUSCA_C='';
+try{TOKEN=sessionStorage.getItem('mg_token')}catch(e){}
+
+const $=id=>document.getElementById(id);
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dig=t=>String(t||'').replace(/\D/g,'');
+const fCorta=f=>{if(!f)return'';const d=new Date(f+'T12:00:00');return DIAS_C[d.getDay()]+' '+d.getDate()+' '+MESES[d.getMonth()]};
+const telWa=t=>{const n=dig(t);return 'https://wa.me/'+(n.length===8?'506'+n:n)};
+
+function toast(msg,err){
+  const t=$('toast');t.textContent=msg;t.className=err?'err':'';
+  clearTimeout(t._t);t._t=setTimeout(()=>t.className='oculto',3500);
+}
+function cargando(si){$('cargando').classList.toggle('oculto',!si)}
+
+const API='https://script.google.com/macros/s/AKfycbydiY2VWLgFu12aY91yHDgikLKHwvvh5gvSOG3v7NMx73qlk-uuQVOaBG_dO4jtNJzGTw/exec';
+
+async function llamar(fn,...args){
+  const cuerpo=fn==='login'?{accion:'login',clave:args[0]}:{accion:'panel',token:args[0],op:args[1],datos:args[2]};
+  cargando(true);
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),60000);
+  try{
+    const r=await fetch(API,{method:'POST',body:JSON.stringify(cuerpo),signal:ctrl.signal});
+    const j=await r.json();
+    return j||{ok:false,error:'Sin respuesta'};
+  }catch(e){
+    return {ok:false,error:e.name==='AbortError'?'El sistema tardó demasiado. Probá de nuevo.':'No se pudo conectar con el sistema. Revisá tu internet y probá de nuevo.'};
+  }finally{
+    clearTimeout(t);
+    cargando(false);
+  }
+}
+
+async function api(accion,datos,msgOk){
+  const r=await llamar('api',TOKEN,accion,datos||{});
+  if(r.sesion===false){cerrarSesion();toast(r.error,true);return r}
+  if(!r.ok){toast(r.error||'Algo salió mal',true);return r}
+  if(r.datos){D=r.datos;render()}
+  if(msgOk)toast(msgOk);
+  return r;
+}
+
+async function entrar(){
+  const clave=$('clave').value;
+  if(!clave)return;
+  $('entrar').disabled=true;$('loginErr').textContent='';
+  const r=await llamar('login',clave);
+  $('entrar').disabled=false;
+  if(!r.ok){$('loginErr').textContent=r.error;return}
+  TOKEN=r.token;
+  try{sessionStorage.setItem('mg_token',TOKEN)}catch(e){}
+  iniciar();
+}
+
+async function iniciar(){
+  const r=await api('inicio');
+  if(!r.ok){$('loginErr').textContent=r.error||'No se pudo cargar el panel';return}
+  $('login').classList.add('oculto');
+  $('app').classList.remove('oculto');
+  $('verWeb').href=D.web||'#';
+}
+
+function cerrarSesion(){
+  TOKEN=null;D=null;
+  try{sessionStorage.removeItem('mg_token')}catch(e){}
+  $('app').classList.add('oculto');
+  $('login').classList.remove('oculto');
+  $('clave').value='';
+}
+
+$('entrar').onclick=entrar;
+$('clave').addEventListener('keydown',e=>{if(e.key==='Enter')entrar()});
+$('salir').onclick=async()=>{await llamar('api',TOKEN,'salir',{});cerrarSesion()};
+$('refrescar').onclick=()=>api('inicio',{}, 'Datos actualizados');
+
+
+function renderTabs(){
+  const pend=D.metricas.pendientes;
+  $('tabs').innerHTML=TABS.map(([k,n])=>`<button class="tab ${k===TAB?'on':''}" data-t="${k}">${n}${k==='reservas'&&pend?`<span class="badge">${pend}</span>`:''}</button>`).join('');
+  $('tabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{TAB=b.dataset.t;render();scrollTo(0,0)});
+}
+
+function render(){
+  if(!D)return;
+  renderTabs();
+  const v={resumen:vResumen,reservas:vReservas,clientes:vClientes,menu:vMenu,promos:vPromos,eventos:vEventos,fotos:vFotos,ajustes:vAjustes}[TAB];
+  $('vista').innerHTML='<div class="vista">'+v()+'</div>';
+  enlazar();
+}
+
+
+function tarjetaReserva(r){
+  const pasada=r.fecha<D.hoy;
+  const b=[];
+  if(r.estado==='Pendiente')b.push(`<button class="btn ok chico" data-estado="Confirmada" data-id="${r.id}">Confirmar</button>`);
+  if((r.estado==='Confirmada'||r.estado==='Pendiente')&&r.fecha<=D.hoy){
+    b.push(`<button class="btn chico" data-estado="Asistió" data-id="${r.id}">Asistió</button>`);
+    b.push(`<button class="btn sec chico" data-estado="No vino" data-id="${r.id}">No vino</button>`);
+  }
+  if(r.estado!=='Cancelada'&&!pasada&&r.estado!=='Asistió')b.push(`<button class="btn peligro chico" data-estado="Cancelada" data-id="${r.id}">Cancelar</button>`);
+  if(r.estado==='Cancelada'&&!pasada)b.push(`<button class="btn sec chico" data-estado="Pendiente" data-id="${r.id}">Reactivar</button>`);
+  return `<div class="res ${esc(r.estado.split(' ')[0])}" data-e="${esc(r.estado)}">
+    <div class="cuando"><b>${esc(r.hora)}</b><span>${fCorta(r.fecha)}</span></div>
+    <div class="quien"><b>${esc(r.nombre)}</b> <span class="estado e-${esc(r.estado.split(' ')[0])}">${esc(r.estado)}</span>
+      <p>${r.personas} pers. · ${esc(r.tipo)}${r.empresa?' · '+esc(r.empresa):''}</p>
+      <p><a href="${telWa(r.telefono)}" target="_blank" rel="noopener">${esc(r.telefono)}</a>${r.correo?' · '+esc(r.correo):''}</p>
+      ${r.comentarios?`<p class="nota">“${esc(r.comentarios)}”</p>`:''}
+    </div>
+    <div class="botones">${b.join('')}</div>
+  </div>`;
+}
+
+function vResumen(){
+  const m=D.metricas;
+  const max=Math.max(1,...m.porDia);
+  const orden=[1,2,3,4,5,6,0];
+  const pendientes=D.reservas.filter(r=>r.estado==='Pendiente'&&r.fecha>=D.hoy);
+  const hoy=D.reservas.filter(r=>r.fecha===D.hoy&&r.estado!=='Cancelada');
+  const tipos=Object.entries(m.porTipo).sort((a,b)=>b[1]-a[1]);
+  return `<h2>Hola, <em>buen servicio.</em></h2><p class="lead">${fCorta(D.hoy)} · Resumen del restaurante</p>
+  <div class="kpis">
+    <div class="kpi"><span>Reservas hoy</span><b>${m.hoy}</b><small>${m.personasHoy} personas</small></div>
+    <div class="kpi ${m.pendientes?'alerta':''}"><span>Por confirmar</span><b>${m.pendientes}</b><small>reservas pendientes</small></div>
+    <div class="kpi"><span>Próximos 7 días</span><b>${m.proximos7}</b><small>reservas activas</small></div>
+    <div class="kpi"><span>Clientes</span><b>${m.clientes}</b><small>${m.recurrentes}% vuelven</small></div>
+    <div class="kpi"><span>Visitas · 30 días</span><b>${m.visitas30}</b><small>${m.canjes30} premios canjeados</small></div>
+    <div class="kpi"><span>Asistencia</span><b>${m.asistencia===null?'—':m.asistencia+'%'}</b><small>de reservas confirmadas</small></div>
+  </div>
+  <div class="dos">
+    <div>
+      <div class="caja"><h3>Por confirmar</h3>${pendientes.length?`<div class="tarjetas">${pendientes.slice(0,6).map(tarjetaReserva).join('')}</div>`:'<div class="vacio">No hay reservas pendientes 🎉</div>'}</div>
+      <div class="caja"><h3>Hoy</h3>${hoy.length?`<div class="tarjetas">${hoy.map(tarjetaReserva).join('')}</div>`:'<div class="vacio">Sin reservas para hoy</div>'}</div>
+    </div>
+    <div>
+      <div class="caja"><h3>Reservas por día</h3><p class="lead" style="margin:0">Últimos 30 días</p>
+        <div class="barras">${orden.map(d=>`<div><em>${m.porDia[d]||''}</em><i style="height:${m.porDia[d]/max*100}%"></i><small>${DIAS_C[d]}</small></div>`).join('')}</div>
+      </div>
+      <div class="caja"><h3>Por tipo</h3>${tipos.length?`<div class="lista-simple">${tipos.map(([t,n])=>`<div><span>${esc(t)}</span><b>${n}</b></div>`).join('')}</div>`:'<div class="vacio">Aún sin datos</div>'}</div>
+    </div>
+  </div>`;
+}
+
+function vReservas(){
+  const filtros={
+    pendientes:['Pendientes',r=>r.estado==='Pendiente'&&r.fecha>=D.hoy],
+    hoy:['Hoy',r=>r.fecha===D.hoy],
+    proximas:['Próximas',r=>r.fecha>=D.hoy&&r.estado!=='Cancelada'],
+    pasadas:['Pasadas',r=>r.fecha<D.hoy],
+    todas:['Todas',r=>true]
+  };
+  const q=BUSCA_R.toLowerCase();
+  let lista=D.reservas.filter(filtros[FILTRO][1]).filter(r=>!q||(r.nombre+' '+r.telefono+' '+r.correo+' '+r.id).toLowerCase().includes(q));
+  if(FILTRO==='pasadas'||FILTRO==='todas')lista=lista.slice().reverse();
+  return `<h2>Reservas</h2><p class="lead">Confirmá, cancelá o marcá la asistencia. Al marcar <b>Asistió</b> se suma un sello al cliente.</p>
+  <div class="fila">
+    <div class="chips">${Object.entries(filtros).map(([k,[n,fn]])=>`<button class="chip ${k===FILTRO?'on':''}" data-filtro="${k}">${n}<b>${D.reservas.filter(fn).length}</b></button>`).join('')}</div>
+    <div class="espacio"></div>
+    <input class="buscar" id="buscaR" placeholder="Buscar nombre, teléfono o código" value="${esc(BUSCA_R)}">
+  </div>
+  ${lista.length?`<div class="tarjetas">${lista.map(tarjetaReserva).join('')}</div>`:'<div class="vacio">No hay reservas en esta vista</div>'}`;
+}
+
+function sellosHtml(c){
+  const max=D.premios.length?D.premios[D.premios.length-1].sellos:10;
+  const hitos=D.premios.map(p=>p.sellos);
+  let h='';
+  for(let i=1;i<=max;i++)h+=`<i class="${i<=c.sellos?'on':''} ${hitos.includes(i)?'premio':''}" title="${i}"></i>`;
+  return `<div class="sellos">${h}</div>`;
+}
+
+function linkUnirse(){
+  return String(D.web||'').split('#')[0].split('?')[0]+'#unirse';
+}
+
+function vClientes(){
+  const q=BUSCA_C.toLowerCase();
+  const lista=D.clientes.filter(c=>!q||(c.nombre+' '+c.telefono+' '+c.correo).toLowerCase().includes(q))
+    .sort((a,b)=>(b.ultima_visita||b.creado).localeCompare(a.ultima_visita||a.creado));
+  return `<h2>Clientes <em>y lealtad.</em></h2><p class="lead">Cada visita suma un sello. Cuando completan los sellos, aparece el premio para canjear.</p>
+  <div class="caja">
+    <h3>Registrar visita sin reserva</h3>
+    <div class="fila" style="margin:0 0 10px">
+      <input id="vTel" placeholder="Teléfono" style="max-width:200px" inputmode="tel">
+      <input id="vNom" placeholder="Nombre (si es cliente nuevo)" style="max-width:260px">
+      <input id="vCorreo" placeholder="Correo (opcional)" type="email" style="max-width:260px">
+      <input id="vCumple" placeholder="Cumpleaños dd/mm" maxlength="5" inputmode="numeric" style="max-width:170px">
+    </div>
+    <label style="display:flex;gap:8px;align-items:center;color:var(--muted);font-size:13px;margin-bottom:12px;cursor:pointer"><input type="checkbox" id="vAcepta" style="width:16px;height:16px;accent-color:var(--gold)"> El cliente aceptó recibir correos de promociones y cliente frecuente</label>
+    <button class="btn" id="vAgregar">Sumar sello</button>
+    <p style="color:var(--muted);font-size:12px;margin-top:10px">Si el cliente ya existe, basta con el teléfono. El correo y el permiso son necesarios para que le lleguen los correos de gracias, cumpleaños y te extrañamos.</p>
+  </div>
+  <div class="caja">
+    <h3>QR para unirse al programa</h3>
+    <div class="fila" style="margin:0;align-items:flex-start;gap:22px">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=12&data=${encodeURIComponent(linkUnirse())}" alt="QR" style="width:150px;height:150px;background:#fff">
+      <div style="flex:1;min-width:220px">
+        <p style="color:var(--muted);font-size:13px;margin-bottom:10px">Imprimilo en las mesas o en la cuenta. Al escanearlo, el cliente se registra solo y recibe su tarjeta por correo. Los sellos los sigue sumando el equipo al pagar.</p>
+        <p style="font-size:12px;word-break:break-all;margin-bottom:12px"><a href="${esc(linkUnirse())}" target="_blank" rel="noopener">${esc(linkUnirse())}</a></p>
+        <a class="btn sec chico" href="https://api.qrserver.com/v1/create-qr-code/?size=1200x1200&margin=40&format=png&data=${encodeURIComponent(linkUnirse())}" target="_blank" rel="noopener">Descargar QR</a>
+      </div>
+    </div>
+  </div>
+  <div class="caja">
+    <div class="fila" style="margin-bottom:8px"><h3 style="margin:0">Premios del programa</h3><div class="espacio"></div><button class="btn sec chico" data-nuevo="Premios">+ Premio</button></div>
+    ${D.premios.length?`<div class="lista-simple">${D.premios.map(p=>`<div><span><b>${p.sellos} sellos</b> · ${esc(p.premio)} <small style="color:var(--muted)">${esc(p.descripcion)}</small></span><span><button class="btn sec chico" data-editar="Premios" data-clave="${p.sellos}">Editar</button> <button class="btn peligro chico" data-borrar="Premios" data-clave="${p.sellos}">Borrar</button></span></div>`).join('')}</div>`:'<div class="vacio">Sin premios</div>'}
+  </div>
+  <div class="fila"><h3 style="font-size:24px">${D.clientes.length} clientes</h3><div class="espacio"></div><input class="buscar" id="buscaC" placeholder="Buscar nombre, teléfono o correo" value="${esc(BUSCA_C)}"></div>
+  ${lista.length?`<table class="tabla"><thead><tr><th>Cliente</th><th>Sellos</th><th>Visitas</th><th>Última visita</th><th>Premios</th></tr></thead><tbody>
+  ${lista.map(c=>`<tr>
+    <td><b>${esc(c.nombre||'—')}</b><br><a href="${telWa(c.telefono)}" target="_blank" rel="noopener">${esc(c.telefono)}</a>${c.correo?`<br><small style="color:var(--muted)">${esc(c.correo)}</small>`:''}${c.cumpleanos?`<br><small style="color:var(--muted)">🎂 ${esc(c.cumpleanos)}</small>`:''}</td>
+    <td>${sellosHtml(c)}<small style="color:var(--muted)">${c.sellos} sellos</small></td>
+    <td>${c.visitas_total}</td>
+    <td>${c.ultima_visita?fCorta(c.ultima_visita):'—'}</td>
+    <td>${c.disponibles.length?c.disponibles.map(p=>`<span class="premio-disp">🎁 ${esc(p.premio)} <button class="btn chico" data-canjear="${p.sellos}" data-tel="${esc(c.telefono)}" data-premio="${esc(p.premio)}">Canjear</button></span>`).join(''):'<small style="color:var(--muted)">—</small>'}
+      <div style="margin-top:6px"><button class="btn sec chico" data-sello="${esc(c.telefono)}">+ Sello</button></div></td>
+  </tr>`).join('')}</tbody></table>`:'<div class="vacio">Sin clientes todavía</div>'}`;
+}
+
+function filaAcc(tabla,clave){
+  return `<td class="acc"><button class="btn sec chico" data-editar="${tabla}" data-clave="${esc(clave)}">Editar</button> <button class="btn peligro chico" data-borrar="${tabla}" data-clave="${esc(clave)}">Borrar</button></td>`;
+}
+
+function vMenu(){
+  const cats=[];
+  D.menu.forEach(m=>{let c=cats.find(x=>x.n===m.categoria);if(!c){c={n:m.categoria,items:[]};cats.push(c)}c.items.push(m)});
+  return `<div class="fila"><div><h2>Menú</h2><p class="lead" style="margin:0">Lo que se muestra en la sección "Carta" de la web.</p></div><div class="espacio"></div><button class="btn" data-nuevo="Menu">+ Agregar plato</button></div>
+  ${cats.length?cats.map(c=>`<div class="cat">${esc(c.n)}</div><table class="tabla"><tbody>${c.items.map(i=>`<tr class="${i.activo?'':'inactivo'}"><td><b>${esc(i.nombre)}</b>${i.descripcion?`<br><small style="color:var(--muted)">${esc(i.descripcion)}</small>`:''}${i.activo?'':' <small>(oculto)</small>'}</td><td style="width:120px">${esc(i.precio)||'<small style="color:var(--muted)">sin precio</small>'}</td>${filaAcc('Menu',i.id)}</tr>`).join('')}</tbody></table>`).join(''):'<div class="vacio">El menú está vacío</div>'}`;
+}
+
+function vPromos(){
+  const por={};D.promos.forEach(p=>por[p.dia]=p);
+  return `<h2>Promociones <em>por día.</em></h2><p class="lead">Una promoción por día de la semana. Los días sin promoción muestran "Rodizio de la casa".</p>
+  <table class="tabla"><tbody>${[1,2,3,4,5,6,0].map(d=>{const p=por[d];return `<tr class="${p&&!p.activo?'inactivo':''}"><td style="width:120px"><b>${DIAS[d]}</b></td>
+  ${p?`<td><b>${esc(p.titulo)}</b> · ${esc(p.precio)} ${esc(p.unidad)}<br><small style="color:var(--muted)">${esc(p.descripcion)}</small>${p.activo?'':' <small>(oculta)</small>'}</td>${filaAcc('Promos',d)}`
+  :`<td><small style="color:var(--muted)">Sin promoción</small></td><td class="acc"><button class="btn sec chico" data-nuevo="Promos" data-dia="${d}">+ Agregar</button></td>`}</tr>`}).join('')}</tbody></table>`;
+}
+
+function vEventos(){
+  const prox=D.eventos.filter(e=>e.fecha>=D.hoy),pas=D.eventos.filter(e=>e.fecha<D.hoy).reverse();
+  const t=l=>`<table class="tabla"><tbody>${l.map(e=>`<tr class="${e.activo?'':'inactivo'}"><td style="width:130px"><b>${fCorta(e.fecha)}</b><br><small style="color:var(--muted)">${esc(e.hora)}</small></td><td><small style="color:var(--ember);letter-spacing:.12em;text-transform:uppercase">${esc(e.etiqueta)}</small><br><b>${esc(e.titulo)}</b> ${e.precio?'· '+esc(e.precio)+' '+esc(e.unidad):''}${e.activo?'':' <small>(oculto)</small>'}</td>${filaAcc('Eventos',e.id)}</tr>`).join('')}</tbody></table>`;
+  return `<div class="fila"><div><h2>Eventos</h2><p class="lead" style="margin:0">Los próximos eventos aparecen en la web con cuenta regresiva y en la barra superior.</p></div><div class="espacio"></div><button class="btn" data-nuevo="Eventos">+ Nuevo evento</button></div>
+  <div class="cat">Próximos</div>${prox.length?t(prox):'<div class="vacio">No hay eventos próximos</div>'}
+  ${pas.length?`<div class="cat">Pasados</div>${t(pas)}`:''}`;
+}
+
+function vFotos(){
+  const orden=['portada','historia','menu','cumpleanos','galeria'];
+  return `<h2>Fotos</h2><p class="lead">La primera foto de cada sección es la que se muestra. La galería muestra todas en orden.</p>
+  <div class="subir">
+    <div><label class="campo">Foto</label><input type="file" id="fArchivo" accept="image/*"></div>
+    <div><label class="campo">Sección</label><select id="fSeccion">${orden.map(s=>`<option value="${s}" ${s==='galeria'?'selected':''}>${SECCIONES[s]}</option>`).join('')}</select></div>
+    <div><label class="campo">Descripción</label><input id="fAlt" placeholder="Ej: Picanha al carbón"></div>
+    <button class="btn" id="fSubir">Subir</button>
+  </div>
+  ${orden.map(s=>{const l=D.fotos.filter(f=>f.seccion===s);return `<div class="cat">${SECCIONES[s]}</div>${l.length?`<div class="fotos">${l.map(f=>`<div class="foto ${f.activo?'':'inactivo'}"><img src="${esc(f.vista)}" alt="${esc(f.alt)}" loading="lazy"><div><small>#${esc(f.orden)}${f.activo?'':' · oculta'}</small><span><button class="btn sec chico" data-editar="Fotos" data-clave="${esc(f.id)}">Editar</button> <button class="btn peligro chico" data-borrar="Fotos" data-clave="${esc(f.id)}">✕</button></span></div></div>`).join('')}</div>`:'<div class="vacio">Sin fotos en esta sección</div>'}`}).join('')}`;
+}
+
+function vAjustes(){
+  const c=D.config;
+  const campo=(k,l,ancho,tipo)=>`<div class="${ancho?'ancho':''}"><label class="campo">${l}</label><input id="cfg_${k}" type="${tipo||'text'}" value="${esc(c[k]||'')}"></div>`;
+  return `<h2>Ajustes</h2><p class="lead">Datos que se muestran en la web y en los correos.</p>
+  <div class="ajustes">
+    ${campo('horario','Horario',true)}
+    ${campo('direccion','Dirección',true)}
+    ${campo('telefono','Teléfono')}
+    ${campo('whatsapp','WhatsApp')}
+    ${campo('correo_restaurante','Correo que recibe las reservas',false,'email')}
+    ${campo('dias_te_extranamos','Días para el correo "te extrañamos"',false,'number')}
+    ${campo('link_resena_google','Link para dejar reseña en Google',true)}
+    ${campo('clave_admin','Contraseña del panel',false,'text')}
+    <div class="ancho"><button class="btn" id="guardarAjustes">Guardar ajustes</button></div>
+  </div>`;
+}
+
+
+const FORMS={
+  Menu:{t:'Plato',clave:'id',campos:[['categoria','Categoría','text',true],['nombre','Nombre','text',true],['descripcion','Descripción','text',true],['precio','Precio (ej: ₡4.500)'],['orden','Orden','number'],['activo','Mostrar en la web','check']]},
+  Promos:{t:'Promoción',clave:'dia',campos:[['dia','Día','dia'],['titulo','Título'],['descripcion','Descripción','textarea',true],['precio','Precio (ej: ₡14.500)'],['unidad','Unidad (ej: por persona)'],['nota','Nota / letra pequeña','text',true],['activo','Mostrar en la web','check']]},
+  Eventos:{t:'Evento',clave:'id',campos:[['fecha','Fecha','date'],['hora','Hora','time'],['etiqueta','Etiqueta (ej: Open House)'],['titulo','Título'],['descripcion','Descripción','textarea',true],['precio','Precio (ej: ₡5.000)'],['unidad','Unidad (ej: Consumibles)'],['activo','Mostrar en la web','check']]},
+  Fotos:{t:'Foto',clave:'id',campos:[['seccion','Sección','seccion'],['orden','Orden','number'],['alt','Descripción','text',true],['activo','Mostrar en la web','check']]},
+  Premios:{t:'Premio',clave:'sellos',campos:[['sellos','Sellos necesarios','number'],['premio','Premio'],['descripcion','Descripción','text',true]]}
+};
+
+function abrirForm(tabla,reg,esNuevo){
+  const f=FORMS[tabla];
+  reg=Object.assign({activo:true},reg||{});
+  const cats=[...new Set(D.menu.map(m=>m.categoria))];
+  const input=([k,l,tipo,ancho])=>{
+    const v=reg[k]==null?'':reg[k];
+    if(tipo==='check')return `<label class="check"><input type="checkbox" id="m_${k}" ${v?'checked':''}> ${l}</label>`;
+    let el;
+    if(tipo==='textarea')el=`<textarea id="m_${k}" rows="3">${esc(v)}</textarea>`;
+    else if(tipo==='dia')el=`<select id="m_${k}">${[1,2,3,4,5,6,0].map(d=>`<option value="${d}" ${String(v)===String(d)?'selected':''}>${DIAS[d]}</option>`).join('')}</select>`;
+    else if(tipo==='seccion')el=`<select id="m_${k}">${Object.entries(SECCIONES).map(([s,n])=>`<option value="${s}" ${v===s?'selected':''}>${n}</option>`).join('')}</select>`;
+    else el=`<input id="m_${k}" type="${tipo||'text'}" value="${esc(v)}" ${k==='categoria'?'list="cats"':''}>`;
+    return `<div class="${ancho||tipo==='textarea'?'ancho':''}"><label class="campo">${l}</label>${el}</div>`;
+  };
+  $('modal').innerHTML=`<div class="modal-box"><h3>${esNuevo?'Nuevo':'Editar'} ${f.t.toLowerCase()}</h3>
+    <div class="form">${f.campos.map(input).join('')}</div>
+    <datalist id="cats">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <div class="modal-pie"><button class="btn sec" id="mCancelar">Cancelar</button><button class="btn" id="mGuardar">Guardar</button></div></div>`;
+  $('modal').classList.remove('oculto');
+  $('mCancelar').onclick=cerrarModal;
+  $('modal').onclick=e=>{if(e.target.id==='modal')cerrarModal()};
+  $('mGuardar').onclick=async()=>{
+    const nuevo=Object.assign({},reg);
+    f.campos.forEach(([k,,tipo])=>{const el=$('m_'+k);nuevo[k]=tipo==='check'?el.checked:el.value.trim()});
+    if(!esNuevo)nuevo._original=reg[f.clave];
+    if(tabla==='Promos'&&esNuevo===false&&String(nuevo.dia)!==String(reg.dia)&&D.promos.some(p=>String(p.dia)===String(nuevo.dia))){toast('Ese día ya tiene una promoción',true);return}
+    if(tabla==='Promos'&&esNuevo&&D.promos.some(p=>String(p.dia)===String(nuevo.dia))){toast('Ese día ya tiene una promoción',true);return}
+    $('mGuardar').disabled=true;
+    const r=await api('guardar',{tabla,registro:nuevo},'Guardado ✓');
+    $('mGuardar')&&($('mGuardar').disabled=false);
+    if(r.ok)cerrarModal();
+  };
+}
+function cerrarModal(){$('modal').classList.add('oculto');$('modal').innerHTML=''}
+
+function buscarRegistro(tabla,clave){
+  const l={Menu:D.menu,Promos:D.promos,Eventos:D.eventos,Fotos:D.fotos,Premios:D.premios}[tabla];
+  const k=FORMS[tabla].clave;
+  return l.find(x=>String(x[k])===String(clave));
+}
+
+function reducirImagen(file){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const max=1600,esc2=Math.min(1,max/Math.max(img.width,img.height));
+      const c=document.createElement('canvas');
+      c.width=Math.round(img.width*esc2);c.height=Math.round(img.height*esc2);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      res(c.toDataURL('image/jpeg',0.82).split(',')[1]);
+    };
+    img.onerror=()=>rej(new Error('No se pudo leer la imagen'));
+    img.src=URL.createObjectURL(file);
+  });
+}
+
+function enlazar(){
+  const v=$('vista');
+  v.querySelectorAll('[data-estado]').forEach(b=>b.onclick=async()=>{
+    const e=b.dataset.estado;
+    if(e==='Cancelada'&&!confirm('¿Cancelar esta reserva? Se le enviará un correo al cliente.'))return;
+    b.disabled=true;
+    await api('estado',{id:b.dataset.id,estado:e},{Confirmada:'Reserva confirmada · se envió el correo',Cancelada:'Reserva cancelada',Asistió:'Asistencia registrada · +1 sello','No vino':'Marcada como no asistió',Pendiente:'Reserva reactivada'}[e]);
+  });
+  v.querySelectorAll('[data-filtro]').forEach(b=>b.onclick=()=>{FILTRO=b.dataset.filtro;render()});
+  const bR=$('buscaR');if(bR){bR.oninput=()=>{BUSCA_R=bR.value;render();const n=$('buscaR');n.focus();n.setSelectionRange(n.value.length,n.value.length)}}
+  const bC=$('buscaC');if(bC){bC.oninput=()=>{BUSCA_C=bC.value;render();const n=$('buscaC');n.focus();n.setSelectionRange(n.value.length,n.value.length)}}
+
+  const vA=$('vAgregar');
+  if(vA)vA.onclick=async()=>{
+    const tel=$('vTel').value;
+    const correo=$('vCorreo').value.trim();
+    const cumple=$('vCumple').value.trim();
+    if(dig(tel).length<8){toast('Escribí un teléfono válido',true);return}
+    if(correo&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)){toast('Revisá el correo',true);return}
+    if(cumple&&!/^\d{2}\/\d{2}$/.test(cumple)){toast('El cumpleaños va como dd/mm',true);return}
+    vA.disabled=true;
+    await api('visita',{telefono:tel,nombre:$('vNom').value,correo:correo,cumpleanos:cumple,acepta_correos:$('vAcepta').checked},'Visita registrada · +1 sello');
+  };
+  const vC=$('vCumple');
+  if(vC)vC.oninput=()=>{let x=vC.value.replace(/\D/g,'').slice(0,4);if(x.length>2)x=x.slice(0,2)+'/'+x.slice(2);vC.value=x};
+  v.querySelectorAll('[data-sello]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('¿Sumar un sello a este cliente?'))return;
+    b.disabled=true;
+    await api('visita',{telefono:b.dataset.sello,nombre:''},'+1 sello');
+  });
+  v.querySelectorAll('[data-canjear]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('¿Canjear "'+b.dataset.premio+'"?'))return;
+    b.disabled=true;
+    await api('canjear',{telefono:b.dataset.tel,sellos:b.dataset.canjear},'Premio canjeado 🎁');
+  });
+
+  v.querySelectorAll('[data-nuevo]').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.nuevo,base={};
+    if(t==='Promos')base.dia=b.dataset.dia||'1';
+    if(t==='Menu')base.orden=D.menu.length+1;
+    if(t==='Eventos'){base.hora='19:00';base.unidad='Consumibles'}
+    if(t==='Premios')delete base.activo;
+    abrirForm(t,base,true);
+  });
+  v.querySelectorAll('[data-editar]').forEach(b=>b.onclick=()=>abrirForm(b.dataset.editar,buscarRegistro(b.dataset.editar,b.dataset.clave),false));
+  v.querySelectorAll('[data-borrar]').forEach(b=>b.onclick=async()=>{
+    if(!confirm('¿Borrar definitivamente?'))return;
+    b.disabled=true;
+    await api('borrar',{tabla:b.dataset.borrar,clave:b.dataset.clave},'Borrado');
+  });
+
+  const fs=$('fSubir');
+  if(fs)fs.onclick=async()=>{
+    const file=$('fArchivo').files[0];
+    if(!file){toast('Elegí una foto',true);return}
+    fs.disabled=true;fs.textContent='Subiendo…';
+    try{
+      const b64=await reducirImagen(file);
+      await api('subirFoto',{base64:b64,mime:'image/jpeg',nombre:file.name.replace(/\.[^.]+$/,'')+'.jpg',seccion:$('fSeccion').value,alt:$('fAlt').value},'Foto subida ✓');
+    }catch(e){toast(e.message,true)}
+    const n=$('fSubir');if(n){n.disabled=false;n.textContent='Subir'}
+  };
+
+  const ga=$('guardarAjustes');
+  if(ga)ga.onclick=async()=>{
+    const datos={};
+    Object.keys(D.config).forEach(k=>{const el=$('cfg_'+k);if(el)datos[k]=el.value.trim()});
+    ga.disabled=true;
+    await api('config',datos,'Ajustes guardados ✓');
+  };
+}
+
+if(TOKEN)iniciar().then(r=>{if(!D)cerrarSesion()});
+</script>
+</body>
+</html>
