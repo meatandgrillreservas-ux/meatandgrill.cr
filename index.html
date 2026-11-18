@@ -231,6 +231,34 @@ form .btn{justify-content:center;margin-top:.6rem}
 .info-list p,.info-list a{color:var(--muted)}
 .info-list a:hover{color:var(--text)}
 
+.club{border-top:1px solid var(--line)}
+.club .split{align-items:start}
+.club-prizes{margin-top:2.4rem;display:grid;gap:0;border-top:1px solid var(--line)}
+.club-prizes div{display:flex;gap:1.4rem;align-items:baseline;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.club-prizes b{font-family:var(--serif);font-size:2rem;font-weight:500;color:var(--gold-2);min-width:3.2rem;line-height:1}
+.club-prizes span{color:var(--text)}
+.club-prizes small{display:block;color:var(--muted);font-size:.85rem}
+.club-box{border:1px solid var(--line);background:var(--bg-2);padding:2.2rem}
+.club-tabs{display:flex;gap:.6rem;margin-bottom:1.8rem;flex-wrap:wrap}
+.club-box form{grid-template-columns:1fr}
+.club-box .lead{font-size:.95rem;margin:0 0 .4rem}
+.stamps{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.2rem 0 1rem}
+.stamps i{width:34px;height:34px;border-radius:50%;border:1px solid #6b5b45;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:.7rem;color:var(--muted)}
+.stamps i.on{background:var(--gold);border-color:var(--gold);color:#120f0c}
+.stamps i.hito{border-color:var(--ember)}
+.stamps i.hito.on{background:var(--ember);border-color:var(--ember);color:#fff}
+.card-name{font-family:var(--serif);font-size:2.2rem;line-height:1.1}
+.card-sub{color:var(--muted);font-size:.9rem}
+.card-list{margin-top:1.6rem}
+.card-list h4{font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:.6rem}
+.card-row{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.card-row em{font-style:normal;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .6rem;border:1px solid var(--line);color:var(--muted);white-space:nowrap;align-self:center}
+.card-row em.disponible{border-color:var(--ember);color:#fff;background:var(--ember)}
+.card-row em.canjeado{opacity:.6}
+.card-row em.Confirmada{border-color:#86efac;color:#86efac}
+.card-row em.Pendiente{border-color:var(--gold-2);color:var(--gold-2)}
+.link-btn{background:none;border:0;color:var(--muted);font:inherit;font-size:.8rem;text-decoration:underline;cursor:pointer;margin-top:1.4rem;padding:0}
+
 footer{border-top:1px solid var(--line);padding:3rem 0}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
 footer p{font-size:.8rem;color:var(--muted)}
@@ -281,6 +309,7 @@ footer p{font-size:.8rem;color:var(--muted)}
       <li><a href="#eventos">Eventos</a></li>
       <li><a href="#privados">Privados</a></li>
       <li><a href="#menu">Menú</a></li>
+      <li><a href="#mi-tarjeta">Mi tarjeta</a></li>
       <li><a href="#reservar">Reservar</a></li>
     </ul>
     <a href="#reservar" class="btn btn-solid">Reservar</a>
@@ -465,6 +494,19 @@ footer p{font-size:.8rem;color:var(--muted)}
   </div>
 </section>
 
+<section class="club" id="mi-tarjeta">
+  <span id="unirse"></span>
+  <div class="wrap split">
+    <div class="reveal">
+      <span class="eyebrow">Cliente frecuente</span>
+      <h2>Cada visita <em>suma.</em></h2>
+      <p class="lead">Al pagar, indique su número de teléfono y sumamos un sello a su tarjeta. Con los sellos gana premios de la casa.</p>
+      <div class="club-prizes" id="clubPremios"></div>
+    </div>
+    <div class="club-box reveal" id="clubBox"></div>
+  </div>
+</section>
+
 <section class="reserve" id="reservar">
   <div class="wrap split">
     <div class="reveal">
@@ -512,7 +554,7 @@ footer p{font-size:.8rem;color:var(--muted)}
 </footer>
 
 <a href="https://wa.me/50687425047" id="waFloat" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.43-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.41"/></svg>
+  <svg viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.470-.88-.79-1.470-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.43-9.880 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.17-3.48-8.41"/></svg>
 </a>
 
 <script>
@@ -688,6 +730,7 @@ function renderTodo(){
   renderMenu();
   renderFotos();
   renderConfig();
+  renderPremiosClub();
 }
 
 async function cargarContenido(){
@@ -701,6 +744,129 @@ async function cargarContenido(){
   }catch(e){}
 }
 
+
+const PREMIOS_BASE=[{sellos:3,premio:'Bebida de la casa',descripcion:'Una caipirinha o una bebida natural'},{sellos:6,premio:'Postre de la casa',descripcion:'Mousse de chocolate, pie de limón o cheesecake'},{sellos:10,premio:'Rodizio gratis',descripcion:'El premio mayor; la tarjeta vuelve a empezar'}];
+const premiosClub=()=>DATOS.premios&&DATOS.premios.length?DATOS.premios:PREMIOS_BASE;
+const ESTADO_PREMIO={disponible:'Listo para canjear',canjeado:'Canjeado'};
+let clubVista='ver';
+
+function renderPremiosClub(){
+  $('clubPremios').innerHTML=premiosClub().map(p=>`<div><b>${p.sellos}</b><span>${esc(p.premio)}${p.descripcion?`<small>${esc(p.descripcion)}</small>`:''}</span></div>`).join('');
+}
+
+function tabsClub(){
+  return `<div class="club-tabs"><button type="button" class="chip${clubVista==='ver'?' on':''}" data-vista="ver">Ver mi tarjeta</button><button type="button" class="chip${clubVista==='unirse'?' on':''}" data-vista="unirse">Unirme al programa</button></div>`;
+}
+
+function bindTabs(){
+  $('clubBox').querySelectorAll('[data-vista]').forEach(b=>b.onclick=()=>{clubVista=b.dataset.vista;renderClubForm()});
+}
+
+function renderClubForm(){
+  const box=$('clubBox');
+  if(clubVista==='ver'){
+    box.innerHTML=tabsClub()+`<form id="formTarjeta" novalidate>
+      <p class="lead">Escriba el teléfono con el que se registró y le enviamos a su correo el enlace a su tarjeta.</p>
+      <div><label for="telTarjeta">Teléfono</label><input id="telTarjeta" type="tel" autocomplete="tel" placeholder="8888 8888"></div>
+      <button type="submit" class="btn btn-solid" id="btnTarjeta">Enviarme el enlace</button>
+      <div class="form-status" id="stTarjeta"></div>
+    </form>`;
+    bindTabs();
+    $('formTarjeta').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const st=$('stTarjeta'),btn=$('btnTarjeta'),tel=$('telTarjeta').value.trim();
+      if(soloDigitos(tel).length<8){st.className='form-status err';st.textContent='Revise el número de teléfono.';return}
+      btn.disabled=true;btn.textContent='Enviando…';
+      try{
+        const j=await (await fetch(API,{method:'POST',body:JSON.stringify({accion:'pedirTarjeta',telefono:tel})})).json();
+        if(!j.ok)throw new Error(j.error);
+        st.className='form-status ok';st.textContent=j.mensaje||'Listo. Revise su correo.';
+        btn.textContent='Enlace enviado';
+      }catch(ex){
+        btn.disabled=false;btn.textContent='Enviarme el enlace';
+        st.className='form-status err';st.textContent=(ex.message&&ex.message!=='Failed to fetch'?ex.message+'. ':'')+'Intente de nuevo o escríbanos por WhatsApp.';
+      }
+    });
+  }else{
+    box.innerHTML=tabsClub()+`<form id="formUnirse" novalidate>
+      <p class="lead">Regístrese en un minuto. Los sellos se suman en cada visita al pagar.</p>
+      <div><label for="uNombre">Nombre completo</label><input id="uNombre" autocomplete="name" placeholder="Su nombre"></div>
+      <div><label for="uTel">Teléfono</label><input id="uTel" type="tel" autocomplete="tel" placeholder="8888 8888"></div>
+      <div><label for="uCorreo">Correo</label><input id="uCorreo" type="email" autocomplete="email" placeholder="Para enviarle su tarjeta"></div>
+      <div><label for="uCumple">Su cumpleaños <span style="text-transform:none;letter-spacing:0">(opcional)</span></label><input id="uCumple" placeholder="dd/mm" maxlength="5" inputmode="numeric"></div>
+      <label class="check"><input type="checkbox" id="uAcepta"><span>Acepto recibir por correo promociones, beneficios de cliente frecuente y saludos de cumpleaños de Meat &amp; Grill.</span></label>
+      <button type="submit" class="btn btn-solid" id="btnUnirse">Unirme</button>
+      <div class="form-status" id="stUnirse"></div>
+    </form>`;
+    bindTabs();
+    $('uCumple').addEventListener('input',formatoCumple);
+    $('formUnirse').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const v=id=>$(id).value.trim();
+      const st=$('stUnirse'),btn=$('btnUnirse');
+      const err=m=>{st.className='form-status err';st.textContent=m};
+      if(!v('uNombre'))return err('Por favor escriba su nombre.');
+      if(soloDigitos(v('uTel')).length<8)return err('Revise el número de teléfono.');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('uCorreo')))return err('Escriba un correo válido.');
+      if(v('uCumple')&&!/^\d{2}\/\d{2}$/.test(v('uCumple')))return err('Escriba su cumpleaños como dd/mm, por ejemplo 15/03.');
+      btn.disabled=true;btn.textContent='Enviando…';
+      try{
+        const j=await (await fetch(API,{method:'POST',body:JSON.stringify({accion:'unirse',nombre:v('uNombre'),telefono:v('uTel'),correo:v('uCorreo'),cumpleanos:v('uCumple'),acepta_correos:$('uAcepta').checked})})).json();
+        if(!j.ok)throw new Error(j.error);
+        $('clubBox').innerHTML=`<div class="exito"><span class="eyebrow">Bienvenido</span><h3>¡Listo, ${esc(v('uNombre').split(' ')[0])}!</h3><p>Ya es parte del programa. Le enviamos su tarjeta a <b>${esc(v('uCorreo'))}</b>. En su próxima visita, indique su teléfono al pagar para sumar su primer sello.</p></div>`;
+      }catch(ex){
+        btn.disabled=false;btn.textContent='Unirme';
+        err((ex.message&&ex.message!=='Failed to fetch'?ex.message+'. ':'')+'Intente de nuevo o escríbanos por WhatsApp.');
+      }
+    });
+  }
+}
+
+function renderTarjeta(d){
+  const hitos=d.premios.map(p=>p.sellos);
+  let sellos='';
+  for(let i=1;i<=d.max;i++)sellos+=`<i class="${i<=d.sellos?'on':''}${hitos.indexOf(i)>-1?' hito':''}">${i}</i>`;
+  const sig=d.premios.find(p=>p.estado==='pendiente');
+  const premios=d.premios.map(p=>`<div class="card-row"><span><b style="color:var(--gold-2);font-weight:500">${p.sellos}</b> · ${esc(p.premio)}</span><em class="${p.estado}">${ESTADO_PREMIO[p.estado]||('Faltan '+p.faltan)}</em></div>`).join('');
+  const reservas=d.reservas.length?d.reservas.map(r=>{
+    const f=new Date(r.fecha+'T'+(r.hora||'12:00')).toLocaleDateString('es-CR',{weekday:'long',day:'numeric',month:'long'});
+    return `<div class="card-row"><span>${esc(f)} · ${esc(r.hora)}<br><small style="color:var(--muted)">${r.personas} personas · ${esc(r.tipo)}</small></span><em class="${esc(r.estado)}">${esc(r.estado)}</em></div>`;
+  }).join(''):'<p class="card-sub" style="padding:.8rem 0">No tiene reservas próximas.</p>';
+  $('clubBox').innerHTML=`<span class="eyebrow">Su tarjeta</span>
+    <div class="card-name">Hola, ${esc(d.nombre)}</div>
+    <div class="stamps">${sellos}</div>
+    <p class="card-sub">Lleva <b style="color:var(--text)">${d.sellos}</b> de ${d.max} sellos${sig?` · le faltan <b style="color:var(--text)">${sig.faltan}</b> para ${esc(sig.premio)}`:''}.</p>
+    <div class="card-list"><h4>Premios</h4>${premios}</div>
+    <div class="card-list"><h4>Próximas reservas</h4>${reservas}</div>
+    <a href="#reservar" class="btn btn-solid" style="margin-top:1.8rem" data-type="Rodizio">Reservar mesa</a>
+    <br><button type="button" class="link-btn" id="salirTarjeta">Salir de mi tarjeta</button>`;
+  bindTypeLinks($('clubBox'));
+  $('salirTarjeta').onclick=()=>{history.replaceState(null,'',location.pathname+'#mi-tarjeta');clubVista='ver';renderClubForm()};
+}
+
+async function iniciarClub(){
+  renderPremiosClub();
+  const q=new URLSearchParams(location.search);
+  if(location.hash==='#unirse')clubVista='unirse';
+  if(!(q.get('tel')&&q.get('t'))){renderClubForm();return}
+  $('clubBox').innerHTML='<p class="card-sub">Cargando su tarjeta…</p>';
+  try{
+    const j=await (await fetch(API+'?accion=tarjeta&tel='+encodeURIComponent(q.get('tel'))+'&t='+encodeURIComponent(q.get('t')))).json();
+    if(!j.ok)throw new Error(j.error);
+    renderTarjeta(j.datos);
+  }catch(ex){
+    renderClubForm();
+    $('stTarjeta').className='form-status err';
+    $('stTarjeta').textContent=ex.message&&ex.message!=='Failed to fetch'?ex.message:'No pudimos cargar su tarjeta. Intente de nuevo.';
+  }
+  $('mi-tarjeta').scrollIntoView({behavior:'smooth'});
+}
+
+function formatoCumple(e){
+  let v=e.target.value.replace(/\D/g,'').slice(0,4);
+  if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
+  e.target.value=v;
+}
 
 const TIPOS={
   'Rodizio':'',
@@ -745,11 +911,7 @@ function bindTypeLinks(root){
 
 $('fecha').min=fechaLocal(new Date());
 $('yr').textContent=new Date().getFullYear();
-$('cumpleanos').addEventListener('input',e=>{
-  let v=e.target.value.replace(/\D/g,'').slice(0,4);
-  if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);
-  e.target.value=v;
-});
+$('cumpleanos').addEventListener('input',formatoCumple);
 
 $('resForm').addEventListener('submit',async e=>{
   e.preventDefault();
@@ -797,6 +959,7 @@ $('resForm').addEventListener('submit',async e=>{
 renderTodo();
 bindTypeLinks(document);
 setTipo('Rodizio');
+iniciarClub();
 cargarContenido();
 
 </script>
